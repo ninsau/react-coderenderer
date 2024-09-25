@@ -1,0 +1,42 @@
+{
+  "name": "nextjs-reusable-table",
+  "version": "1.0.0",
+  "main": "index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ninsau/nextjs-reusable-table.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ninsau/nextjs-reusable-table/issues"
+  },
+  "homepage": "https://github.com/ninsau/nextjs-reusable-table#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup src/index.ts --format esm,cjs --dts"
+  },
+  "keywords": [],
+  "author": "ninsau",
+  "license": "ISC",
+  "description": "A highly customizable and reusable table component for Next.js applications, built with TypeScript and the latest technologies.",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.9",
+    "@types/react-dom": "^18.3.0",
+    "react-loading-skeleton": "^3.5.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.2"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "next": "14.2.11"
+  }
+}
