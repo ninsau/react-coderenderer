@@ -18,6 +18,7 @@ Thank you for considering contributing to the **Next.js Reusable Table** project
 - [Versioning](#versioning)
 - [License](#license)
 - [Contact](#contact)
+- [Code of Conduct](#code-of-conduct)
 
 ---
 

@@ -13,6 +13,7 @@ A highly customizable and reusable table component for Next.js applications, bui
 - [Contributing](#contributing)
 - [Versioning](#versioning)
 - [License](#license)
+- [Code of Conduct](#code-of-conduct)
 - [Acknowledgments](#acknowledgments)
 
 ## Features
