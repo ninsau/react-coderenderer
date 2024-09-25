@@ -1,6 +1,6 @@
 {
   "name": "nextjs-reusable-table",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "main": "index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -37,6 +37,39 @@
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "next": "14.2.11"
-  }
+    "next": "14.2.11",
+    "tailwindcss": "^3.3.0"
+  },
+  "keywords": [
+    "nextjs",
+    "next.js",
+    "react",
+    "typescript",
+    "table",
+    "data table",
+    "reusable component",
+    "component",
+    "ui component",
+    "data grid",
+    "data display",
+    "data visualization",
+    "frontend",
+    "frontend component",
+    "react component",
+    "nextjs component",
+    "typescript component",
+    "npm package",
+    "reusable",
+    "customizable",
+    "responsive",
+    "ui library",
+    "data",
+    "table component",
+    "action dropdown",
+    "skeleton loader",
+    "no content component",
+    "modern",
+    "tailwindcss",
+    "open source"
+  ]
 }

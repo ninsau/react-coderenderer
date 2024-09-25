@@ -26,6 +26,11 @@ A highly customizable and reusable table component for Next.js applications, bui
 - **No Content Component**: Displays a friendly message when there's no data.
 - **Latest Technologies**: Uses modern React features and best practices.
 
+## Prerequisites
+
+This package uses [Tailwind CSS](https://tailwindcss.com/) for styling. Ensure you have Tailwind CSS installed and configured in your Next.js project. If you haven't set it up yet, follow the official [Tailwind CSS Next.js Installation Guide](https://tailwindcss.com/docs/guides/nextjs).
+
+
 ## Installation
 
 Install the package via npm:
