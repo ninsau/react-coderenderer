@@ -138,6 +138,12 @@ To bump the version, update the `version` field in `package.json` and follow the
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
 
+
+## Code of Conduct
+
+This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+
+
 ## Acknowledgments
 
 - Inspired by common data table patterns in React and Next.js applications.
