@@ -6,7 +6,7 @@ import TableSkeleton from "./TableSkeleton";
 import ActionDropdown from "./ActionDropdown";
 import Link from "next/link";
 
-const TableComponent = <T extends Record<string, unknown>>({
+function TableComponent<T>({
   columns,
   data,
   props,
@@ -15,7 +15,7 @@ const TableComponent = <T extends Record<string, unknown>>({
   loading,
   actionFunctions,
   searchValue,
-}: TableProps<T>) => {
+}: TableProps<T>) {
   if (!data || loading) {
     return <TableSkeleton />;
   }
@@ -47,8 +47,8 @@ const TableComponent = <T extends Record<string, unknown>>({
             </tr>
           </thead>
           <tbody className="bg-white">
-            {data.map((item, index) => (
-              <tr key={index} className="even:bg-gray-50">
+            {data.map((item, dataIndex) => (
+              <tr key={dataIndex} className="even:bg-gray-50">
                 {props.map((prop) => {
                   const value = item[prop as keyof T];
                   let displayValue: React.ReactNode;
@@ -74,13 +74,12 @@ const TableComponent = <T extends Record<string, unknown>>({
                   ) {
                     displayValue = (
                       <Link href={value}>
-                        <a
+                        <span
                           className="text-blue-500 hover:underline"
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
                         >
                           {trimText(value, 30)}
-                        </a>
+                        </span>
                       </Link>
                     );
                   } else {
@@ -89,7 +88,7 @@ const TableComponent = <T extends Record<string, unknown>>({
 
                   return (
                     <td
-                      key={index}
+                      key={String(prop)}
                       className="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                     >
                       {displayValue}
@@ -97,9 +96,9 @@ const TableComponent = <T extends Record<string, unknown>>({
                   );
                 })}
                 {actions && actionTexts && actionFunctions && (
-                  <ActionDropdown
+                  <ActionDropdown<T>
                     item={item}
-                    index={index}
+                    index={dataIndex}
                     actionTexts={actionTexts}
                     actionFunctions={actionFunctions}
                   />
@@ -111,6 +110,6 @@ const TableComponent = <T extends Record<string, unknown>>({
       </div>
     </div>
   );
-};
+}
 
 export default TableComponent;

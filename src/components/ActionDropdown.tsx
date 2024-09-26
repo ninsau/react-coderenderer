@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { ActionDropdownProps } from "../types";
 
-const ActionDropdown = <T extends Record<string, unknown>>({
+const ActionDropdown = <T,>({
   item,
   index,
   actionTexts,

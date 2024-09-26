@@ -1,7 +1,7 @@
 export interface TableProps<T> {
   columns: string[];
   data: T[];
-  props: (keyof T)[];
+  props: ReadonlyArray<keyof T>;
   actions?: boolean;
   actionTexts?: string[];
   loading?: boolean;

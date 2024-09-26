@@ -30,7 +30,6 @@ A highly customizable and reusable table component for Next.js applications, bui
 
 This package uses [Tailwind CSS](https://tailwindcss.com/) for styling. Ensure you have Tailwind CSS installed and configured in your Next.js project. If you haven't set it up yet, follow the official [Tailwind CSS Next.js Installation Guide](https://tailwindcss.com/docs/guides/nextjs).
 
-
 ## Installation
 
 Install the package via npm:
@@ -58,7 +57,7 @@ import { TableComponent } from "nextjs-reusable-table";
 
 ```tsx
 import React from "react";
-import { TableComponent } from "nextjs-reusable-table";
+import { TableComponent } from "@ninsau/nextjs-reusable-table";
 
 interface User {
   id: number;
@@ -85,7 +84,7 @@ const MyTablePage: React.FC = () => {
   };
 
   return (
-    <TableComponent
+    <TableComponent<User>
       columns={columns}
       data={data}
       props={props}
@@ -144,11 +143,9 @@ To bump the version, update the `version` field in `package.json` and follow the
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
 
-
 ## Code of Conduct
 
 This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
-
 
 ## Acknowledgments
 
