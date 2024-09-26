@@ -49,10 +49,7 @@ function TableComponent<T>({
             </thead>
             <tbody className="bg-white">
               {data.map((item, dataIndex) => (
-                <tr
-                  key={dataIndex}
-                  className={dataIndex % 2 === 0 ? "bg-white" : "bg-gray-50"}
-                >
+                <tr key={dataIndex} className="even:bg-gray-50">
                   {props.map((prop) => {
                     const value = item[prop as keyof T];
                     let displayValue: React.ReactNode;
@@ -100,14 +97,12 @@ function TableComponent<T>({
                     );
                   })}
                   {actions && actionTexts && actionFunctions && (
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <ActionDropdown<T>
-                        item={item}
-                        index={dataIndex}
-                        actionTexts={actionTexts}
-                        actionFunctions={actionFunctions}
-                      />
-                    </td>
+                    <ActionDropdown<T>
+                      item={item}
+                      index={dataIndex}
+                      actionTexts={actionTexts}
+                      actionFunctions={actionFunctions}
+                    />
                   )}
                 </tr>
               ))}

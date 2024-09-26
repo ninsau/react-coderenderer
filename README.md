@@ -54,6 +54,21 @@ import React from "react";
 import { TableComponent } from "nextjs-reusable-table";
 ```
 
+Pass the required props to the `TableComponent`:
+
+```tsx
+<TableComponent
+  columns={columns}
+  data={data}
+  props={props}
+  actions={true}
+  actionTexts={["Edit", "Delete"]}
+  actionFunctions={[handleEdit, handleDelete]}
+  loading={false}
+  searchValue=""
+/>
+```
+
 ### Basic Example
 
 ```tsx
@@ -171,7 +186,7 @@ const MyTablePage: React.FC = () => {
 export default MyTablePage;
 ```
 
-### Explanation and Guidance\*\*
+### Explanation and Guidance
 
 **Why Wrap the `TableComponent`?**
 
