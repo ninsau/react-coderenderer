@@ -5,7 +5,8 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "dist/index.css"
   ],
   "repository": {
     "type": "git",
@@ -17,26 +18,30 @@
   "homepage": "https://github.com/ninsau/nextjs-reusable-table#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsup src/index.ts --format esm,cjs --dts"
+    "build": "tsup src/index.ts --format esm,cjs --dts && npm run build:css",
+    "build:css": "tailwindcss -i src/styles/tableStyles.css -o dist/index.css --minify"
   },
   "author": "ninsau",
   "license": "ISC",
   "description": "A highly customizable and reusable table component for Next.js applications, built with TypeScript and the latest technologies.",
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.9",
     "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
     "react-loading-skeleton": "^3.5.0",
+    "tailwindcss": "^3.4.13",
     "tsup": "^8.3.0",
     "typescript": "^5.6.2"
   },
   "peerDependencies": {
+    "next": "14.2.11",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "next": "14.2.11",
     "tailwindcss": "^3.3.0"
   },
   "keywords": [

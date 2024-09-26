@@ -7,6 +7,8 @@ const ActionDropdown = <T,>({
   index,
   actionTexts,
   actionFunctions,
+  disableDefaultStyles = false,
+  customClassNames = {},
 }: ActionDropdownProps<T>) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState<{
@@ -52,10 +54,39 @@ const ActionDropdown = <T,>({
     event.stopPropagation();
   };
 
+  const defaultTdClassName =
+    "relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3";
+  const defaultButtonClassName = "focus:outline-none";
+  const defaultSvgClassName = "w-6 h-6 text-gray-500 hover:text-gray-700";
+  const defaultDropdownMenuClassName =
+    "absolute z-50 mt-1 w-48 bg-white shadow-md rounded-lg";
+  const defaultDropdownItemClassName =
+    "block w-full text-left px-4 py-2 text-sm text-gray-500 hover:bg-gray-100";
+
+  const tdClassName = disableDefaultStyles
+    ? customClassNames.actionTd || ""
+    : `${defaultTdClassName} ${customClassNames.actionTd || ""}`;
+
+  const buttonClassName = disableDefaultStyles
+    ? customClassNames.actionButton || ""
+    : `${defaultButtonClassName} ${customClassNames.actionButton || ""}`;
+
+  const svgClassName = disableDefaultStyles
+    ? customClassNames.actionSvg || ""
+    : `${defaultSvgClassName} ${customClassNames.actionSvg || ""}`;
+
+  const dropdownMenuClassName = disableDefaultStyles
+    ? customClassNames.dropdownMenu || ""
+    : `${defaultDropdownMenuClassName} ${customClassNames.dropdownMenu || ""}`;
+
+  const dropdownItemClassName = disableDefaultStyles
+    ? customClassNames.dropdownItem || ""
+    : `${defaultDropdownItemClassName} ${customClassNames.dropdownItem || ""}`;
+
   const dropdownMenu = (
     <div
       ref={dropdownRef}
-      className="absolute z-50 mt-1 w-48 bg-white shadow-md rounded-lg"
+      className={dropdownMenuClassName}
       style={{
         top: dropdownPosition.top,
         left: dropdownPosition.left,
@@ -70,7 +101,7 @@ const ActionDropdown = <T,>({
             actionFunctions[i](item);
             setIsDropdownOpen(false);
           }}
-          className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
+          className={dropdownItemClassName}
         >
           {text}
         </button>
@@ -79,22 +110,18 @@ const ActionDropdown = <T,>({
   );
 
   return (
-    <td
-      key={`actions-${index}`}
-      className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3"
-    >
+    <td key={`actions-${index}`} className={tdClassName}>
       <button
         ref={buttonRef}
         onClick={toggleDropdown}
-        className="focus:outline-none"
+        className={buttonClassName}
       >
-        {/* SVG Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
-          className="w-6 h-6 text-gray-500 hover:text-gray-700"
+          className={svgClassName}
         >
           <path
             strokeLinecap="round"

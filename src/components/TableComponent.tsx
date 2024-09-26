@@ -15,6 +15,8 @@ function TableComponent<T>({
   loading,
   actionFunctions,
   searchValue,
+  disableDefaultStyles = false,
+  customClassNames = {},
 }: TableProps<T>) {
   if (!data || loading) {
     return <TableSkeleton />;
@@ -24,32 +26,69 @@ function TableComponent<T>({
     return <NoContentComponent name={searchValue ?? "items"} />;
   }
 
+  const defaultContainerClassName = "my-8 overflow-x-auto";
+  const defaultTableClassName = "min-w-full divide-y divide-gray-200";
+  const defaultTheadClassName = "bg-gray-50";
+  const defaultThClassName =
+    "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider";
+  const defaultTrClassName = (index: number) =>
+    index % 2 === 0 ? "bg-white" : "bg-gray-50";
+  const defaultTdClassName =
+    "px-6 py-4 whitespace-nowrap text-sm text-gray-700";
+  const defaultActionTdClassName =
+    "relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3";
+
+  const containerClassName = disableDefaultStyles
+    ? customClassNames.container || ""
+    : `${defaultContainerClassName} ${customClassNames.container || ""}`;
+
+  const tableClassName = disableDefaultStyles
+    ? customClassNames.table || ""
+    : `${defaultTableClassName} ${customClassNames.table || ""}`;
+
+  const theadClassName = disableDefaultStyles
+    ? customClassNames.thead || ""
+    : `${defaultTheadClassName} ${customClassNames.thead || ""}`;
+
+  const thClassName = disableDefaultStyles
+    ? customClassNames.th || ""
+    : `${defaultThClassName} ${customClassNames.th || ""}`;
+
+  const trClassName = (index: number) =>
+    disableDefaultStyles
+      ? customClassNames.tr || ""
+      : `${defaultTrClassName(index)} ${customClassNames.tr || ""}`;
+
+  const tdClassName = disableDefaultStyles
+    ? customClassNames.td || ""
+    : `${defaultTdClassName} ${customClassNames.td || ""}`;
+
+  const actionTdClassName = disableDefaultStyles
+    ? customClassNames.actionTd || ""
+    : `${defaultActionTdClassName} ${customClassNames.actionTd || ""}`;
+
   return (
-    <div className="my-8 overflow-x-auto">
+    <div className={containerClassName}>
       <div className="inline-block min-w-full align-middle">
         <div className="overflow-hidden border border-gray-200 rounded-lg">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className={tableClassName}>
+            <thead className={theadClassName}>
               <tr>
                 {columns.map((column) => (
-                  <th
-                    key={column}
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
+                  <th key={column} scope="col" className={thClassName}>
                     {column}
                   </th>
                 ))}
                 {actions && actionTexts && (
-                  <th scope="col" className="relative px-6 py-3">
+                  <th scope="col" className={thClassName}>
                     <span className="sr-only">{actionTexts.join(", ")}</span>
                   </th>
                 )}
               </tr>
             </thead>
-            <tbody className="bg-white">
+            <tbody>
               {data.map((item, dataIndex) => (
-                <tr key={dataIndex} className="even:bg-gray-50">
+                <tr key={dataIndex} className={trClassName(dataIndex)}>
                   {props.map((prop) => {
                     const value = item[prop as keyof T];
                     let displayValue: React.ReactNode;
@@ -88,10 +127,7 @@ function TableComponent<T>({
                     }
 
                     return (
-                      <td
-                        key={String(prop)}
-                        className="px-6 py-4 whitespace-nowrap text-sm text-gray-700"
-                      >
+                      <td key={String(prop)} className={tdClassName}>
                         {displayValue}
                       </td>
                     );
@@ -102,6 +138,8 @@ function TableComponent<T>({
                       index={dataIndex}
                       actionTexts={actionTexts}
                       actionFunctions={actionFunctions}
+                      disableDefaultStyles={disableDefaultStyles}
+                      customClassNames={customClassNames}
                     />
                   )}
                 </tr>
