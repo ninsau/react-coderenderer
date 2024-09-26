@@ -19,7 +19,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsup src/index.ts --format esm,cjs --dts"
   },
-  "keywords": [],
   "author": "ninsau",
   "license": "ISC",
   "description": "A highly customizable and reusable table component for Next.js applications, built with TypeScript and the latest technologies.",
