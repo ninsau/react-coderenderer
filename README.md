@@ -56,8 +56,9 @@ import { TableComponent } from "nextjs-reusable-table";
 ### Basic Example
 
 ```tsx
+"use client";
 import React from "react";
-import { TableComponent } from "@ninsau/nextjs-reusable-table";
+import { TableComponent } from "nextjs-reusable-table";
 
 interface User {
   id: number;
@@ -84,7 +85,8 @@ const MyTablePage: React.FC = () => {
   };
 
   return (
-    <TableComponent<User>
+    //you can wrap this within another component to give a desired layout
+    <TableComponent
       columns={columns}
       data={data}
       props={props}
