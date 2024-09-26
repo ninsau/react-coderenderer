@@ -26,7 +26,7 @@ function TableComponent<T>({
 
   return (
     <div className="my-8 overflow-x-auto">
-      <div className="min-w-full inline-block align-middle">
+      <div className="inline-block min-w-full align-middle">
         <div className="overflow-hidden border border-gray-200 rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
@@ -47,9 +47,12 @@ function TableComponent<T>({
                 )}
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white">
               {data.map((item, dataIndex) => (
-                <tr key={dataIndex}>
+                <tr
+                  key={dataIndex}
+                  className={dataIndex % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                >
                   {props.map((prop) => {
                     const value = item[prop as keyof T];
                     let displayValue: React.ReactNode;
