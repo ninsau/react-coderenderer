@@ -1,11 +1,12 @@
 {
   "name": "react-coderenderer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "dist/index.css"
   ],
   "repository": {
     "type": "git",

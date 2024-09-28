@@ -59,8 +59,8 @@ Import the `CodeRenderer` into your React component:
 
 ```tsx
 import React from "react";
-import CodeRenderer from "react-coderenderer";
-import 'react-coderenderer/dist/index.css'; // Import default styles
+import { CodeRenderer } from "react-coderenderer";
+import "react-coderenderer/dist/index.css"; // Import default styles
 ```
 
 Pass the required props to the `CodeRenderer` component:
@@ -77,23 +77,36 @@ Here's a basic example of how to use the `CodeRenderer` component:
 
 ```tsx
 import React from "react";
-import CodeRenderer from "react-coderenderer";
-import 'react-coderenderer/dist/index.css'; // Import default styles
+import { CodeRenderer } from "react-coderenderer";
+import "react-coderenderer/dist/index.css"; // Import default styles
 
-const exampleCode = `
-  import React from 'react';
-  const HelloWorld = () => <div>Hello, World!</div>;
+const code = `
+import React from 'react';
+
+function MyComponent() {
+  return (
+    <div className="p-4 border">
+        <h2 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">My Custom Component</h2>
+    </div>
+  );
+}
+
+export default MyComponent;
 `;
 
-const MyComponent = () => <div>Hello, World!</div>;
+const BasicCodeRenderer: React.FC = () => {
+  return (
+    <CodeRenderer code={code}>
+      <div className="p-4 border">
+        <h2 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          My Custom Component
+        </h2>
+      </div>
+    </CodeRenderer>
+  );
+};
 
-const Example = () => (
-  <CodeRenderer code={exampleCode}>
-    <MyComponent />
-  </CodeRenderer>
-);
-
-export default Example;
+export default BasicCodeRenderer;
 ```
 
 ### Props
@@ -145,7 +158,7 @@ If you want to apply your own styles, you can pass custom class names via the `c
 
 ```tsx
 import React from "react";
-import CodeRenderer from "react-coderenderer";
+import { CodeRenderer } from "react-coderenderer";
 import "./my-custom-styles.css"; // Your custom styles
 
 const exampleCode = `
