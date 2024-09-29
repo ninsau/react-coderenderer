@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import {
-  vscDarkPlus,
-  prism,
-} from "react-syntax-highlighter/dist/esm/styles/prism";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { ExtendedCodeRendererProps } from "../types";
 
 const CopyIcon = ({ copied }: { copied: boolean }) => (
@@ -28,20 +25,24 @@ const CodeRenderer: React.FC<ExtendedCodeRendererProps> = ({
   children,
   disableDefaultStyles = false,
   customClassNames = {},
+  enableDarkMode = true,
 }) => {
   const [showCode, setShowCode] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  // Detect dark mode only if enableDarkMode is true
   useEffect(() => {
-    const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
-    setIsDarkMode(matchMedia.matches);
-    const handleChange = () => setIsDarkMode(matchMedia.matches);
-    matchMedia.addEventListener("change", handleChange);
-    return () => {
-      matchMedia.removeEventListener("change", handleChange);
-    };
-  }, []);
+    if (enableDarkMode) {
+      const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
+      setIsDarkMode(matchMedia.matches);
+      const handleChange = () => setIsDarkMode(matchMedia.matches);
+      matchMedia.addEventListener("change", handleChange);
+      return () => {
+        matchMedia.removeEventListener("change", handleChange);
+      };
+    }
+  }, [enableDarkMode]);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(code).then(() => {
@@ -50,39 +51,39 @@ const CodeRenderer: React.FC<ExtendedCodeRendererProps> = ({
     });
   };
 
-  // Base classes for light and dark modes
-  const baseContainerClassName = isDarkMode
-    ? "bg-gray-900 text-gray-200 border-gray-700"
-    : "bg-gray-50 text-gray-900 border-gray-200";
-  const baseButtonClassName = isDarkMode
-    ? "bg-gray-800 text-gray-200 hover:text-gray-400"
-    : "bg-white text-gray-900 hover:text-gray-500";
-  const baseCodeBlockClassName = isDarkMode
-    ? "bg-gray-900 text-gray-200 border-gray-700"
-    : "bg-gray-50 text-gray-800 border-gray-200";
-
-  const defaultContainerClassName = `p-4 border rounded-md shadow-lg transition-all duration-300 ease-in-out ${baseContainerClassName}`;
-  const defaultButtonGroupClassName =
-    "flex bg-gray-200 dark:bg-gray-800 rounded-full p-1 transition-all duration-200 ease-in-out";
-  const defaultButtonClassName = `px-4 py-1.5 rounded-full transition-colors duration-200 ease-in-out ${baseButtonClassName}`;
-  const defaultCopyButtonClassName = `flex items-center gap-2 text-sm font-medium transition-all duration-200 ease-in-out ${baseButtonClassName}`;
-  const defaultCodeBlockClassName = `mt-4 p-4 rounded-lg border overflow-auto shadow-md transition-opacity duration-200 ease-in-out opacity-100 ${baseCodeBlockClassName}`;
-
+  // Conditional styles based on dark mode
   const containerClassName = disableDefaultStyles
     ? customClassNames.container || ""
-    : `${defaultContainerClassName} ${customClassNames.container || ""}`;
+    : `${isDarkMode ? "bg-gray-900 text-gray-200" : "bg-gray-50 text-gray-900"} 
+       p-4 border rounded-md shadow-lg transition-all duration-300 ease-in-out 
+       ${customClassNames.container || ""}`;
+
   const buttonGroupClassName = disableDefaultStyles
     ? customClassNames.buttonGroup || ""
-    : `${defaultButtonGroupClassName} ${customClassNames.buttonGroup || ""}`;
+    : `flex ${isDarkMode ? "bg-gray-800" : "bg-gray-200"} 
+       rounded-full p-1 transition-all duration-200 ease-in-out 
+       ${customClassNames.buttonGroup || ""}`;
+
   const buttonClassName = disableDefaultStyles
     ? customClassNames.button || ""
-    : `${defaultButtonClassName} ${customClassNames.button || ""}`;
+    : `px-4 py-1.5 rounded-full transition-colors duration-200 ease-in-out 
+       ${customClassNames.button || ""}`;
+
   const copyButtonClassName = disableDefaultStyles
     ? customClassNames.copyButton || ""
-    : `${defaultCopyButtonClassName} ${customClassNames.copyButton || ""}`;
+    : `flex items-center gap-2 text-sm font-medium 
+       ${isDarkMode ? "text-gray-200" : "text-gray-900"} 
+       hover:${isDarkMode ? "text-gray-400" : "text-gray-500"} 
+       transition-all duration-200 ease-in-out 
+       ${customClassNames.copyButton || ""}`;
+
   const codeBlockClassName = disableDefaultStyles
     ? customClassNames.codeBlock || ""
-    : `${defaultCodeBlockClassName} ${customClassNames.codeBlock || ""}`;
+    : `mt-4 p-4 rounded-lg border ${
+        isDarkMode ? "bg-gray-900 text-gray-200" : "bg-gray-50 text-gray-800"
+      } 
+       overflow-auto shadow-md transition-opacity duration-200 ease-in-out opacity-100 
+       ${customClassNames.codeBlock || ""}`;
 
   return (
     <div className={containerClassName}>
@@ -93,9 +94,11 @@ const CodeRenderer: React.FC<ExtendedCodeRendererProps> = ({
               onClick={() => setShowCode(false)}
               className={`${buttonClassName} ${
                 !showCode
-                  ? isDarkMode
-                    ? "bg-gray-700 text-gray-200"
-                    : "bg-gray-200 text-gray-900"
+                  ? `${
+                      isDarkMode
+                        ? "bg-gray-700 text-gray-200"
+                        : "bg-white text-gray-900"
+                    }`
                   : ""
               }`}
             >
@@ -105,9 +108,11 @@ const CodeRenderer: React.FC<ExtendedCodeRendererProps> = ({
               onClick={() => setShowCode(true)}
               className={`${buttonClassName} ${
                 showCode
-                  ? isDarkMode
-                    ? "bg-gray-700 text-gray-200"
-                    : "bg-gray-200 text-gray-900"
+                  ? `${
+                      isDarkMode
+                        ? "bg-gray-700 text-gray-200"
+                        : "bg-white text-gray-900"
+                    }`
                   : ""
               }`}
             >
@@ -132,10 +137,7 @@ const CodeRenderer: React.FC<ExtendedCodeRendererProps> = ({
         </div>
       ) : (
         <div className={codeBlockClassName}>
-          <SyntaxHighlighter
-            language="tsx"
-            style={isDarkMode ? vscDarkPlus : prism}
-          >
+          <SyntaxHighlighter language="tsx" style={vscDarkPlus}>
             {code}
           </SyntaxHighlighter>
         </div>

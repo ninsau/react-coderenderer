@@ -14,4 +14,5 @@ export interface CustomClassNames {
 export interface ExtendedCodeRendererProps extends CodeRendererProps {
   disableDefaultStyles?: boolean;
   customClassNames?: CustomClassNames;
+  enableDarkMode?: boolean;
 }
