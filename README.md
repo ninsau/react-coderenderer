@@ -121,6 +121,7 @@ The `CodeRenderer` component accepts the following props:
 | `children`             | `ReactNode` | Yes      | The content to display when the "Preview" button is selected.                  |
 | `disableDefaultStyles` | `boolean`   | No       | Disables default Tailwind CSS styles if set to `true`.                         |
 | `customClassNames`     | `object`    | No       | Custom class names for various elements (e.g., container, button, code block). |
+| `enableDarkMode`       | `boolean`   | No       | Enables dark mode for the code block.                                          |
 
 ### Opting Out of Default Styles
 
