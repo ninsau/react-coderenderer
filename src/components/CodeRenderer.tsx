@@ -92,7 +92,11 @@ const CodeRenderer: React.FC<ExtendedCodeRendererProps> = ({
             <button
               onClick={() => setShowCode(false)}
               className={`${buttonClassName} ${
-                !showCode ? "bg-white dark:bg-gray-700" : ""
+                !showCode
+                  ? isDarkMode
+                    ? "bg-gray-700 text-gray-200"
+                    : "bg-gray-200 text-gray-900"
+                  : ""
               }`}
             >
               Preview
@@ -100,7 +104,11 @@ const CodeRenderer: React.FC<ExtendedCodeRendererProps> = ({
             <button
               onClick={() => setShowCode(true)}
               className={`${buttonClassName} ${
-                showCode ? "bg-white dark:bg-gray-700" : ""
+                showCode
+                  ? isDarkMode
+                    ? "bg-gray-700 text-gray-200"
+                    : "bg-gray-200 text-gray-900"
+                  : ""
               }`}
             >
               Code
